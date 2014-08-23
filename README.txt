@@ -10,3 +10,7 @@ Notes on operation:
 	so it does not use any ancillary data systems such as mine currently does.  To simplify the javascript code I have one JSON "schema"
 	that I can use for both individual landmarks as well as for GPS trails.  I just leave the unnecessary fields blank.  Then I can create
 	a single JSON that contains both landmark and gps trail data for consumption by the javascript.
+- Stop Profiles
+	The stopprofiles.xml doc contains pre-defined stop profiles (You'll have to change for your particular stop profiles)
+	These are used to make the circles larger/smaller.  The javascript tool does NOT show the arriving ring.  We don't use
+	it at present.
