@@ -1,0 +1,9 @@
+<profiles>
+	<profile id="130" arriving="200" arrived="100" departed="125" />
+	<profile id="104" arriving="400" arrived="250" departed="270" />
+	<profile id="107" arriving="450" arrived="375" departed="400" />
+	<profile id="108" arriving="1000" arrived="500" departed="560" />
+	<profile id="100" arriving="2500" arrived="725" departed="775" />
+	<profile id="128" arriving="2500" arrived="1100" departed="1250" />
+	<profile id="123" arriving="3000" arrived="1700" departed="1800" />
+</profiles>
