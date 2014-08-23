@@ -228,7 +228,7 @@ function createMarker(latlng,name,html,category, arriving, arrived, departed, cl
 		if(marker.mycategory != "stopevent") {
 			extracontent = '<center><div id="updateresults"></div><br><br><a href="javascript:postupdate(' + marker.lmid + ',' +  marker.position.lat().toPrecision(6) + ',' +  
 			marker.position.lng().toPrecision(6) +
-			',' +  marker.lmstopprofile + ',' + marker.id + ')">Update Locations in Site Manager<\/a></center>';
+			',' +  marker.lmstopprofile + ',' + marker.id + ')">Update Locations in PeopleNet<\/a></center>';
 		}
         infowindow.setContent(contentString+extracontent); 
         infowindow.open(map,marker);
@@ -377,7 +377,7 @@ function createMarker(latlng,name,html,category, arriving, arrived, departed, cl
 	  }
 
 		function postupdate(landmarkID, lat, lng, stopprofile, markerid) {
-			$.get("http://elcvmweb04:8888/landmarking/UpdateLandmark.aspx?LandmarkID="+landmarkID+"&Lat="+lat+"&Long="+lng+"&StpPrf="+stopprofile, 
+			$.get("http://<WEBSERVER>/landmarking/UpdateLandmark.aspx?LandmarkID="+landmarkID+"&Lat="+lat+"&Long="+lng+"&StpPrf="+stopprofile, 
 			{},
 			function(data,status){
       			//alert("Landmark Update: " + status);
@@ -408,57 +408,6 @@ function getUrlVars() {
     return vars;
 }		
 
-function bspline(lats, lons) {
-			var i, t, ax, ay, bx, by, cx, cy, dx, dy, lat, lon, points;
-			points = [];
-			// For every point
-			for (i = 2; i < lats.length - 2; i++) {
-				for (t = 0; t < 1; t += 0.2) {
-					ax = (-lats[i - 2] + 3 * lats[i - 1] - 3 * lats[i] + lats[i + 1]) / 6;
-					ay = (-lons[i - 2] + 3 * lons[i - 1] - 3 * lons[i] + lons[i + 1]) / 6;
-					bx = (lats[i - 2] - 2 * lats[i - 1] + lats[i]) / 2;
-					by = (lons[i - 2] - 2 * lons[i - 1] + lons[i]) / 2;
-					cx = (-lats[i - 2] + lats[i]) / 2;
-					cy = (-lons[i - 2] + lons[i]) / 2;
-					dx = (lats[i - 2] + 4 * lats[i - 1] + lats[i]) / 6;
-					dy = (lons[i - 2] + 4 * lons[i - 1] + lons[i]) / 6;
-					lat = ax * Math.pow(t + 0.1, 3) + bx * Math.pow(t + 0.1, 2) + cx * (t + 0.1) + dx;
-					lon = ay * Math.pow(t + 0.1, 3) + by * Math.pow(t + 0.1, 2) + cy * (t + 0.1) + dy;
-					points.push(new ALKMaps.Geometry.Point(lon, lat));
-        }
-    }
-    return points;
-}
-
-	/// --->>> Directions Service Info  <<<---
-function calcRoute() {
-  var start = gmarkers[0].position;
-  var end = gmarkers[0].position;
-  var waypts = [];
-  for (var i = 0; i < gmarkers.length; i++) {
-    if (gmarkers[i].mycategory != "stopevent") {
-    	if(gmarkers[i].mycategory != "gpstrail") {
-    		waypts.push({
-          	location:gmarkers[i].position,
-          	stopover:true});
-    	}
-      }
-  }
-
-  var request = {
-      origin: start,
-      destination: end,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING
-  };
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      }
-  });
-}
-
 
 function initialize() {
 
@@ -485,22 +434,14 @@ function initialize() {
     switch (qryparams.Action) {
 
         case "1":
-            jsonurl = "http://elcvmweb04:8888/LMDataSvc/LandmarkDataService.svc/GetLandmarksByCustID/" + qryparams.Param;
+            jsonurl = "http://<WEBSERVER>/LMDataSvc/LandmarkDataService.svc/GetLandmarksByCustID/" + qryparams.Param;
             break;
 
         case "2":
-            jsonurl = "http://elcvmweb04:8888/LMDataSvc/LandmarkDataService.svc/GetLandmarksByDispID/" + qryparams.Param;
+            jsonurl = "http://<WEBSERVER>/LMDataSvc/LandmarkDataService.svc/GetLandmarksByDispID/" + qryparams.Param;
             break;
 
-        case "3":
-            jsonurl = "http://elcvmweb04:8888/LMDataSvc/LandmarkDataService.svc/GetLandmarksBySiteID/" + qryparams.Param;
-            break;
 
-		case "4":
-             //alert("This Query can take 15-30 seconds to load. Please wait while data loads");
-			jsonurl = "http://elcvmweb04:8888/LMDataSvc/LandmarkDataService.svc/GetLandmarksByTimeSheetID/" + qryparams.Param;
-            break;	
-			
         default:
             jsonurl = "http://elcvmweb04:8888/LMDataSvc/LandmarkDataService.svc/GetLandmarksByCustID/ELCTST";
             break;
@@ -528,17 +469,7 @@ function initialize() {
 	            case "2":
 	                markers = data.getLandmarksByDispIDResult;
 	                break;
-
-	            case "3":
-	                markers = data.getLandmarksBySiteIDResult;
-	                break;
-
-				case "4":
-					
-	                markers = data.getLandmarksByTimesheetIDResult;
-					
-	                break;	
-					
+			
 	            default:
 	                markers = data.getLandmarksByCustIDResult;
 	                break;
