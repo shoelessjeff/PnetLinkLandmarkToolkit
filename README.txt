@@ -26,4 +26,4 @@ Notes on operation:
 	generates the JSON docs I add a category based on the lmtype.  IE lmtype=1 => "store"
 
 
-8/22/2014 - Added HTML file, sample JSON documents, and Code-Behind for a C# page to update the landmark
+8/22/2014 - Added HTML file, sample JSON documents, and Code-Behind for a C# page to update the landmark.  Updated readme
