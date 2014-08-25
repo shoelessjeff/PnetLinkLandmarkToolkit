@@ -1,4 +1,9 @@
-8/22/2014 - Added HTML file, sample JSON documents, and Code-Behind for a C# page to update the landmark
+Requirements:
+	- downloadxml.js - https://code.google.com/p/frisaporceddhu/source/browse/trunk/js/downloadxml.js?spec=svn45&r=45
+	- jquery.js (Currently using 2.1.1) - http://jquery.com/
+	
+	- Markericons - I used the ones found here.  http://mapicons.nicolasmollet.com/
+
 
 Notes on operation:
 - Landmark Categories.  column - lmtype  table - pnet.landmarks
@@ -14,3 +19,6 @@ Notes on operation:
 	The stopprofiles.xml doc contains pre-defined stop profiles (You'll have to change for your particular stop profiles)
 	These are used to make the circles larger/smaller.  The javascript tool does NOT show the arriving ring.  We don't use
 	it at present.
+
+
+8/22/2014 - Added HTML file, sample JSON documents, and Code-Behind for a C# page to update the landmark
